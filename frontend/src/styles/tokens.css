@@ -1,0 +1,174 @@
+/* ==========================================================================
+   bITacora — Design tokens
+   Tema claro por defecto (:root y [data-theme="light"]), variante oscura
+   en [data-theme="dark"]. El naranja corporativo NUNCA se usa como color
+   de texto, solo en background/border/fill/stroke.
+   ========================================================================== */
+
+:root,
+[data-theme='light'] {
+  /* Marca Agrosuper */
+  --as-blue: #003087;
+  --as-blue-500: #0a4ab3;
+  --as-orange: #e87722;
+  --as-orange-600: #d5641a;
+
+  /* Texto */
+  --text-1: #10182b;
+  --text-2: #46506b;
+  --text-3: #7a8399;
+  --text-on-brand: #ffffff;
+
+  /* Fondos */
+  --bg-app: #eef1f8;
+  --bg-surface: #ffffff;
+
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-bg-strong: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --glass-shadow: 0 8px 32px rgba(16, 24, 43, 0.12);
+  --blur: 12px;
+
+  /* Radios */
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  /* Semáforo */
+  --sem-ok: #1a7f4b;
+  --sem-ok-bg: rgba(26, 127, 75, 0.12);
+  --sem-warn: #ca8a04;
+  --sem-warn-bg: rgba(202, 138, 4, 0.14);
+  --sem-danger: #c0392b;
+  --sem-danger-bg: rgba(192, 57, 43, 0.12);
+  --sem-gris: #7a8399;
+  --sem-gris-bg: rgba(122, 131, 153, 0.14);
+
+  /* Estados de item */
+  --state-pendiente: #46506b;
+  --state-pendiente-bg: rgba(70, 80, 107, 0.12);
+  --state-en-curso: #0a4ab3;
+  --state-en-curso-bg: rgba(10, 74, 179, 0.12);
+  --state-en-espera: #ca8a04;
+  --state-en-espera-bg: rgba(202, 138, 4, 0.14);
+  --state-completado: #1a7f4b;
+  --state-completado-bg: rgba(26, 127, 75, 0.12);
+  --state-cancelado: #c0392b;
+  --state-cancelado-bg: rgba(192, 57, 43, 0.1);
+
+  /* Prioridad */
+  --prio-baja: #46506b;
+  --prio-media: #0a4ab3;
+  --prio-alta-bg: var(--as-orange);
+  --prio-urgente-bg: #c0392b;
+
+  /* Bordes / sombras genéricas */
+  --border-1: rgba(16, 24, 43, 0.1);
+  --shadow-card: 0 2px 10px rgba(16, 24, 43, 0.08);
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --as-blue: #4d7fe0;
+  --as-blue-500: #6f97e8;
+  --as-orange: #f0913f;
+  --as-orange-600: #e87722;
+
+  --text-1: #eef1f8;
+  --text-2: #c1c9dd;
+  --text-3: #8b95ad;
+  --text-on-brand: #ffffff;
+
+  --bg-app: #001a4d;
+  --bg-surface: #041c4f;
+
+  --glass-bg: rgba(255, 255, 255, 0.09);
+  --glass-bg-strong: rgba(255, 255, 255, 0.14);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --blur: 12px;
+
+  --sem-ok: #2fd47f;
+  --sem-ok-bg: rgba(47, 212, 127, 0.16);
+  --sem-warn: #eab308;
+  --sem-warn-bg: rgba(234, 179, 8, 0.18);
+  --sem-danger: #f16558;
+  --sem-danger-bg: rgba(241, 101, 88, 0.18);
+  --sem-gris: #9aa4bd;
+  --sem-gris-bg: rgba(154, 164, 189, 0.16);
+
+  --state-pendiente: #c1c9dd;
+  --state-pendiente-bg: rgba(193, 201, 221, 0.14);
+  --state-en-curso: #6f97e8;
+  --state-en-curso-bg: rgba(111, 151, 232, 0.18);
+  --state-en-espera: #eab308;
+  --state-en-espera-bg: rgba(234, 179, 8, 0.18);
+  --state-completado: #2fd47f;
+  --state-completado-bg: rgba(47, 212, 127, 0.16);
+  --state-cancelado: #f16558;
+  --state-cancelado-bg: rgba(241, 101, 88, 0.16);
+
+  --prio-baja: #c1c9dd;
+  --prio-media: #6f97e8;
+  --prio-alta-bg: #f0913f;
+  --prio-urgente-bg: #f16558;
+
+  --border-1: rgba(255, 255, 255, 0.12);
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --as-blue: #4d7fe0;
+    --as-blue-500: #6f97e8;
+    --as-orange: #f0913f;
+    --as-orange-600: #e87722;
+
+    --text-1: #eef1f8;
+    --text-2: #c1c9dd;
+    --text-3: #8b95ad;
+    --text-on-brand: #ffffff;
+
+    --bg-app: #001a4d;
+    --bg-surface: #041c4f;
+
+    --glass-bg: rgba(255, 255, 255, 0.09);
+    --glass-bg-strong: rgba(255, 255, 255, 0.14);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+
+    --sem-ok: #2fd47f;
+    --sem-ok-bg: rgba(47, 212, 127, 0.16);
+    --sem-warn: #eab308;
+    --sem-warn-bg: rgba(234, 179, 8, 0.18);
+    --sem-danger: #f16558;
+    --sem-danger-bg: rgba(241, 101, 88, 0.18);
+    --sem-gris: #9aa4bd;
+    --sem-gris-bg: rgba(154, 164, 189, 0.16);
+
+    --state-pendiente: #c1c9dd;
+    --state-pendiente-bg: rgba(193, 201, 221, 0.14);
+    --state-en-curso: #6f97e8;
+    --state-en-curso-bg: rgba(111, 151, 232, 0.18);
+    --state-en-espera: #eab308;
+    --state-en-espera-bg: rgba(234, 179, 8, 0.18);
+    --state-completado: #2fd47f;
+    --state-completado-bg: rgba(47, 212, 127, 0.16);
+    --state-cancelado: #f16558;
+    --state-cancelado-bg: rgba(241, 101, 88, 0.16);
+
+    --prio-baja: #c1c9dd;
+    --prio-media: #6f97e8;
+    --prio-alta-bg: #f0913f;
+    --prio-urgente-bg: #f16558;
+
+    --border-1: rgba(255, 255, 255, 0.12);
+    --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    color-scheme: dark;
+  }
+}

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bITacora</title>
+</head>
+<body style="margin:0; padding:0; background-color:#eef1f8; font-family: 'Segoe UI', Arial, sans-serif;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#eef1f8; padding:32px 12px;">
+<tr>
+<td align="center">
+<table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px; width:100%; background-color:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 2px 10px rgba(16,24,43,0.10);">
+
+  <!-- Franja superior azul corporativo -->
+  <tr>
+    <td style="background-color:#003087; padding:20px 28px;">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="font-size:20px; font-weight:700; color:#ffffff; font-family:'Segoe UI', Arial, sans-serif;">
+            bIT&aacute;cora
+          </td>
+          <td align="right" style="font-size:13px; color:#c9d6ef; font-family:'Segoe UI', Arial, sans-serif;">
+            Agrosuper
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <!-- Cuerpo -->
+  <tr>
+    <td style="padding:28px 28px 8px 28px;">
+
+      <!-- Badge de urgencia -->
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="background-color:{{ badge_bg }}; border-radius:999px; padding:6px 14px;">
+            <span style="color:#ffffff; font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; font-family:'Segoe UI', Arial, sans-serif;">
+              {{ badge_label }}
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:18px 0 4px 0; font-size:13px; color:#7a8399; font-family:'Segoe UI', Arial, sans-serif;">
+        {{ modulo_label }}
+      </p>
+      <h1 style="margin:0 0 18px 0; font-size:20px; line-height:1.35; color:#10182b; font-family:'Segoe UI', Arial, sans-serif;">
+        {{ titulo }}
+      </h1>
+
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f5f7fc; border-radius:10px; margin-bottom:22px;">
+        <tr>
+          <td style="padding:16px 18px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-family:'Segoe UI', Arial, sans-serif; font-size:14px;">
+              <tr>
+                <td style="padding:4px 0; color:#7a8399; width:110px;">Plazo m&aacute;ximo</td>
+                <td style="padding:4px 0; color:#10182b; font-weight:600;">{{ plazo }}</td>
+              </tr>
+              <tr>
+                <td style="padding:4px 0; color:#7a8399;">Estado</td>
+                <td style="padding:4px 0; color:#10182b;">{{ estado_display }}</td>
+              </tr>
+              <tr>
+                <td style="padding:4px 0; color:#7a8399;">Prioridad</td>
+                <td style="padding:4px 0; color:#10182b;">{{ prioridad_display }}</td>
+              </tr>
+              <tr>
+                <td style="padding:4px 0; color:#7a8399;">Responsable</td>
+                <td style="padding:4px 0; color:#10182b;">{{ responsable_nombre }}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <p style="margin:0 0 26px 0; font-size:14px; line-height:1.5; color:#46506b; font-family:'Segoe UI', Arial, sans-serif;">
+        {{ mensaje }}
+      </p>
+
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td style="background-color:#e87722; border-radius:8px;">
+            <a href="{{ url_item }}" style="display:inline-block; padding:12px 24px; font-size:14px; font-weight:700; color:#ffffff; text-decoration:none; font-family:'Segoe UI', Arial, sans-serif;">
+              Ver en bIT&aacute;cora &rarr;
+            </a>
+          </td>
+        </tr>
+      </table>
+
+      {% if firma_usuario %}
+      <p style="margin:26px 0 0 0; font-size:14px; line-height:1.5; color:#46506b; font-family:'Segoe UI', Arial, sans-serif;">
+        Saludos cordiales,<br>{{ firma_usuario }}.
+      </p>
+      {% endif %}
+
+    </td>
+  </tr>
+
+  <!-- Footer -->
+  <tr>
+    <td style="padding:20px 28px 26px 28px;">
+      <p style="margin:0; font-size:12px; line-height:1.5; color:#a0a8bc; font-family:'Segoe UI', Arial, sans-serif;">
+        Este es un aviso automatico de bIT&aacute;cora, la app de gestion interna de Agrosuper.
+        No responder a este correo.
+      </p>
+    </td>
+  </tr>
+
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,19 @@
+bITacora - {{ badge_label }}
+
+{{ modulo_label }}: {{ titulo }}
+
+Plazo maximo: {{ plazo }}
+Estado: {{ estado_display }}
+Prioridad: {{ prioridad_display }}
+Responsable: {{ responsable_nombre }}
+
+{{ mensaje }}
+
+Ver en bITacora: {{ url_item }}
+{% if firma_usuario %}
+Saludos cordiales,
+{{ firma_usuario }}.
+{% endif %}
+---
+Este es un aviso automatico de bITacora, la app de gestion interna de Agrosuper.
+No responder a este correo.

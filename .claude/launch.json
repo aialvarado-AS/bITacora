@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bitacora-server",
+      "runtimeExecutable": "C:\\Proyectos_IA\\bITacora\\Iniciar_Servidor.bat",
+      "runtimeArgs": [],
+      "port": 5012
+    }
+  ]
+}
