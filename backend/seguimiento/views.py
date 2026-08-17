@@ -7,6 +7,8 @@ queryset/serializer_class; los permisos, filtros/busqueda y las 3 action
 routes compartidas (comentarios, adjuntos, actividad) quedan resueltos aqui.
 """
 
+import threading
+
 from django.contrib.contenttypes.models import ContentType
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, permissions, status, viewsets
@@ -95,10 +97,18 @@ class BaseItemSeguimientoViewSet(RegistraActividadMixin, viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[EsEditorOAdmin])
     def enviar_recordatorio(self, request, pk=None):
-        """Envia AHORA MISMO (a pedido, sin esperar al comando automatico)
-        el correo de recordatorio de este item a su responsable actual,
-        firmado con el nombre de quien hizo click. No exige que el plazo
-        este en T-3/T-1/vencido: el boton siempre esta disponible."""
+        """Encola AHORA MISMO (a pedido, sin esperar al comando automatico)
+        el envio del correo de recordatorio de este item a su responsable
+        actual, firmado con el nombre de quien hizo click. No exige que el
+        plazo este en T-3/T-1/vencido: el boton siempre esta disponible.
+
+        El envio real (con sus reintentos por la lentitud intermitente del
+        SMTP de M365) corre en un hilo aparte: si se hiciera de forma
+        sincrona dentro de la request, un SMTP colgado bloquea uno de los
+        pocos hilos de waitress hasta por varios segundos, y eso satura la
+        cola de peticiones y afecta a peticiones sin relacion (incluso el
+        login de otros usuarios) - visto en produccion (waitress "Task
+        queue depth" + 502 en cascada)."""
         from notificaciones.models import EmailLog
         from notificaciones.services import enviar_recordatorio as enviar_correo
 
@@ -111,25 +121,32 @@ class BaseItemSeguimientoViewSet(RegistraActividadMixin, viewsets.ModelViewSet):
             )
 
         content_type = ContentType.objects.get_for_model(item)
-        exito, error_detalle = enviar_correo(
-            item, content_type, EmailLog.TipoAlerta.MANUAL, usuario_firma=request.user,
-        )
+        usuario = request.user
+        responsable_nombre = item.responsable_actual.nombre
 
-        if not exito:
-            return Response(
-                {'detail': f'No se pudo enviar el correo: {error_detalle}'},
-                status=status.HTTP_502_BAD_GATEWAY,
+        def _enviar_en_segundo_plano():
+            exito, _error = enviar_correo(
+                item, content_type, EmailLog.TipoAlerta.MANUAL, usuario_firma=usuario,
             )
+            if exito:
+                registrar_actividad(
+                    item,
+                    'RECORDATORIO_ENVIADO',
+                    autor=usuario,
+                    descripcion=f'Envio un recordatorio por correo a {responsable_nombre}.',
+                )
 
-        registrar_actividad(
-            item,
-            'RECORDATORIO_ENVIADO',
-            autor=request.user,
-            descripcion=(
-                f'Envio un recordatorio por correo a {item.responsable_actual.nombre}.'
-            ),
+        threading.Thread(target=_enviar_en_segundo_plano, daemon=True).start()
+
+        return Response(
+            {
+                'detail': (
+                    'El envio quedo en curso. Revisa la pestana Actividad '
+                    'en unos segundos para confirmar que se envio.'
+                ),
+            },
+            status=status.HTTP_202_ACCEPTED,
         )
-        return Response({'detail': 'Recordatorio enviado correctamente.'})
 
     @action(detail=True, methods=['get'])
     def actividad(self, request, pk=None):

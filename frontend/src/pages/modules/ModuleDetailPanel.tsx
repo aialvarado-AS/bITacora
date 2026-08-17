@@ -157,8 +157,15 @@ export function ModuleDetailPanel({ config, itemId, onClose }: ModuleDetailPanel
         method: 'POST',
       }),
     onSuccess: () => {
-      toast({ title: 'Recordatorio enviado', variant: 'success' })
+      toast({ title: 'Envío en curso… revisa la pestaña Actividad en unos segundos', variant: 'success' })
+      // El envío real corre en segundo plano en el backend (puede demorar
+      // unos segundos por reintentos ante SMTP lento); una sola
+      // invalidación inmediata no alcanza a mostrarlo, así que se repite
+      // una vez más tras una breve espera.
       queryClient.invalidateQueries({ queryKey: [config.apiBasePath, 'actividad', editId] })
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: [config.apiBasePath, 'actividad', editId] })
+      }, 6000)
     },
     onError: (error: unknown) => {
       const mensaje = error instanceof Error ? error.message : 'No se pudo enviar el correo'
